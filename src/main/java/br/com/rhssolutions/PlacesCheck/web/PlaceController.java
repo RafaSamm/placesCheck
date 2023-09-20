@@ -4,8 +4,10 @@ import br.com.rhssolutions.PlacesCheck.api.PlaceRequest;
 import br.com.rhssolutions.PlacesCheck.api.PlaceResponse;
 import br.com.rhssolutions.PlacesCheck.domain.Place;
 import br.com.rhssolutions.PlacesCheck.domain.PlaceService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,7 @@ public class PlaceController {
     }
 
     @PostMapping
-    public ResponseEntity<Mono<PlaceResponse>> createPlace(@RequestBody PlaceRequest request) {
+    public ResponseEntity<Mono<PlaceResponse>> createPlace(@Valid @RequestBody PlaceRequest request) {
         var response = placeService.createPlace(request).map(PlaceMapper::toResponse);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
