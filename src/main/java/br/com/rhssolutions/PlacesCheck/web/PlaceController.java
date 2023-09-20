@@ -1,5 +1,7 @@
 package br.com.rhssolutions.PlacesCheck.web;
 
+import br.com.rhssolutions.PlacesCheck.api.PlaceRequest;
+import br.com.rhssolutions.PlacesCheck.api.PlaceResponse;
 import br.com.rhssolutions.PlacesCheck.domain.Place;
 import br.com.rhssolutions.PlacesCheck.domain.PlaceService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,9 @@ public class PlaceController {
     }
 
     @PostMapping
-    public ResponseEntity<Mono<Place>> createPlace(@RequestBody Place place) {
-        var mono = placeService.createPlace(place);
-        return ResponseEntity.status(HttpStatus.CREATED).body(mono);
+    public ResponseEntity<Mono<PlaceResponse>> createPlace(@RequestBody PlaceRequest request) {
+        var response = placeService.createPlace(request).map(PlaceMapper::toResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
     }
 }

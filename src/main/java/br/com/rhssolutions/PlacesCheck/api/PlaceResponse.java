@@ -1,12 +1,13 @@
-package br.com.rhssolutions.PlacesCheck.domain;
+package br.com.rhssolutions.PlacesCheck.api;
 
 import java.time.LocalDateTime;
 
-public record Place(
-        Long id,
+public record PlaceResponse(
         String name,
         String slug,
         String state,
         LocalDateTime createdAt,
         LocalDateTime updatedAt) {
 }
+
+
